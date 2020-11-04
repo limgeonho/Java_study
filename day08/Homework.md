@@ -37,19 +37,84 @@ public class Quiz01 {
 			}
 		}
 
-		double percent =  ((double)winCnt / pNum) * 100;	// 정답률을 구함
+	double percent =  ((double)winCnt / pNum) * 100;	// 정답률을 구함
 
-		if(percent >= 80) {	// 정답률을 통해 80이상이면 win을 미만이면 lose를 String형 변수 res에 저장
-			res = "WIN";
-		}else{
-			res = "LOSE";
-		}
+	if(percent >= 80) {	// 정답률을 통해 80이상이면 win을 미만이면 lose를 String형 변수 res에 저장
+		res = "WIN";
+	}else{
+		res = "LOSE";
+	}
 
-		JOptionPane.showMessageDialog(null, "총점 : " + score 
-				+ "\n정답률 : " + (int)percent + "%"
-				+ "\n" + res);	// 지금까지 구한 것들을 출력
+	JOptionPane.showMessageDialog(null, "총점 : " + score 
+			+ "\n정답률 : " + (int)percent + "%"
+			+ "\n" + res);	// 지금까지 구한 것들을 출력
 
 	}
 
 }
+
+======================================================================================================================================================================
+
+public class Quiz03 {
+
+	public static void main(String[] args) {
+//		1. Scanner를 사용하여 6개의 데이터를 입력 받고, 이들을 nums 배열에 저장
+		
+		Scanner sc = new Scanner(System.in);	// 입력생성
+		int nums[] = new int[6];	// 6칸짜리 배열생성
+		
+		for(int i = 0; i < nums.length; i++) {	// 생성한 배열에 6개의 정수 입력 후 저장
+			nums[i] = sc.nextInt();
+		}
+		
+		
+//		2. 입력 받은 값 중, 20 이상 100 이하인 원소만 출력
+		 
+		System.out.println("20 이상 100 이하인 원소 ");
+		
+		for(int e : nums) {				// 확장된 for문을 활용해서 출력
+			if(e >= 20 && e <= 100) {	// if문을 활용해서 20이상이며 100미만인 정수들을 출력
+				System.out.println(e + " ");	
+			}
+		}
+		
+		
+//		3. 입력 받은 값 중, 최댓값과 최솟값을 출력
+		int max = nums[0];	// 처음 최댓값을 num[0]으로 저장(어짜피 0번째부터 for문이 시작하니까)
+		int min = nums[0];	// 처음 최솟값을 num[0]으로 저장(어짜피 0번째부터 for문이 시작하니까)
+		
+		for(int i = 1; i < nums.length; i++) {
+			if(max < nums[i]) {		// num[i]에서 순차적으로 비교되는 값이 이전의 값보다 크면 max에 저장 
+				max = nums[i];
+			}
+			if(min > nums[i]) {		// num[i]에서 순차적으로 비교되는 값이 이전의 값보다 작으면 min에 저장 
+				min = nums[i];
+			}
+		}
+		System.out.println("최댓값 : " + max);	// 최댓값 출력
+		System.out.println("최댓값 : " + min);	// 최솟값 출력
+		
+		
+//		4. 오름차순(작은->큰)으로 정렬하여 모든 원소를 출력  ==> 버블 정렬 알고리즘 검색해서 ... 
+		
+		int temp;
+		
+		for(int i = nums.length; i>0; i--) {
+			for(int j = 0; j < i-1; j++) {
+				if(nums[j] > nums[j+1]) {
+					temp = nums[j];
+					nums[j] = nums[j+1];
+					nums[j+1] = temp;	// 임시의 temp 변수를 만들어서 작은 값과 큰값의 자리를 바꾸기 위해 사용
+				}
+			}
+		}
+		
+		for(int i = 0; i < nums.length; i++) {
+			System.out.println(nums[i] + " ");
+		}
+	
+	}
+
+}
+
 ```
