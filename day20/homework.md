@@ -63,27 +63,20 @@ public class Quiz02 {
 		 
 		String[] days = {"", "일", "월", "화", "수", "목", "금", "토"};
 		
-		Calendar stCal = Calendar.getInstance();
-		Calendar endCal = Calendar.getInstance();
+		Calendar cal = Calendar.getInstance();
 		
 		System.out.println("년을 입력하세요.");
 		int year = sc.nextInt();
 		System.out.println("달을 입력하세요");
 		int month = sc.nextInt();
 		
-		stCal.set(year, month-1, 1);
-		endCal.set(year, month, 1);
-		endCal.add(Calendar.DATE, -1);
+		cal.set(year, month-1, 1);
+		int startDay = cal.get(Calendar.DATE);
+		int num = cal.get(Calendar.DAY_OF_WEEK);
 		
-		
-		int num = stCal.get(Calendar.DAY_OF_WEEK);
-		
-		int startDay = stCal.get(Calendar.DATE);
-		int lastDay = endCal.get(Calendar.DATE);
-//		System.out.println(startDay);
-//		System.out.println(lastDay);
-		
-		
+		cal.set(year, month, 1);
+		cal.add(Calendar.DATE, -1);
+		int lastDay = cal.get(Calendar.DATE);
 		
 		System.out.println("==== " + year + "년 " + month + "월  ====");
 		System.out.println("일\t월\t화\t수\t목\t금\t토");
@@ -92,9 +85,9 @@ public class Quiz02 {
 			System.out.print("\t");
 		}
 		
-		for(int i = startDay ; i < lastDay+1; i++) {
-			stCal.set(year, month-1, i);
-				if(stCal.get(Calendar.DAY_OF_WEEK) % 7 != 0) {
+		for(int i = startDay; i < lastDay+1; i++) {
+			cal.set(year, month-1, i);
+				if(cal.get(Calendar.DAY_OF_WEEK) % 7 != 0) {
 					System.out.print(i + "\t");
 				}else {
 					System.out.print(i + "\n");
