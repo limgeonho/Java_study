@@ -1,4 +1,5 @@
 ```mysql
+등록일자가 2020/01/01 이전인 포켓몬들의 번호, 이름, 등록일자 알려줘
 MariaDB [testdb]> SELECT no, name regdate FROM pokemon WHERE regdate < '2020-01-01';
 +----+---------+
 | no | regdate |
@@ -6,8 +7,8 @@ MariaDB [testdb]> SELECT no, name regdate FROM pokemon WHERE regdate < '2020-01-
 |  9 | 뮤      |
 | 10 | 피츄    |
 +----+---------+
-2 rows in set (0.006 sec)
 
+레벨이 5 이상 10 이하인 포켓몬들의 모든 정보 알려줘 
 MariaDB [testdb]> SELECT * FROM pokemon WHERE level <= 10 AND level >= 5;
 +----+----------+-------+------+------+---------------------+
 | no | name     | level | hp   | ap   | regdate             |
@@ -17,8 +18,8 @@ MariaDB [testdb]> SELECT * FROM pokemon WHERE level <= 10 AND level >= 5;
 |  4 | 망나뇽   |     7 |  100 |    6 | 2020-12-09 15:41:09 |
 |  5 | 치코리타 |     8 |  100 |    9 | 2020-12-09 15:41:09 |
 +----+----------+-------+------+------+---------------------+
-4 rows in set (0.001 sec)
 
+모든 포켓몬들의 레벨 보여줘
 MariaDB [testdb]> SELECT level FROM pokemon;
 +-------+
 | level |
@@ -34,8 +35,8 @@ MariaDB [testdb]> SELECT level FROM pokemon;
 |    30 |
 |    30 |
 +-------+
-10 rows in set (0.000 sec)
 
+모든 포켓몬들의 레벨 보여줘. 중복 제거 해줘. (DISTINCT)  
 MariaDB [testdb]> SELECT DISTINCT level FROM pokemon;
 +-------+
 | level |
@@ -50,8 +51,8 @@ MariaDB [testdb]> SELECT DISTINCT level FROM pokemon;
 |   100 |
 |    30 |
 +-------+
-9 rows in set (0.006 sec)
 
+모든 포켓몬들의 이름, 레벨 보여줘. 이름 오름차순으로 보여줘  (ORDER BY) 
 MariaDB [testdb]>  SELECT name, level FROM pokemon ORDER BY name;
 +----------+-------+
 | name     | level |
@@ -67,8 +68,8 @@ MariaDB [testdb]>  SELECT name, level FROM pokemon ORDER BY name;
 | 피츄     |    30 |
 | 피카츄   |    10 |
 +----------+-------+
-10 rows in set (0.000 sec)
 
+모든 포켓몬들의 이름, 레벨 보여줘. 레벨 많은 순으로 보여줘  (ORDER BY) 
 MariaDB [testdb]> SELECT name, level FROM pokemon ORDER BY level;
 +----------+-------+
 | name     | level |
@@ -84,8 +85,8 @@ MariaDB [testdb]> SELECT name, level FROM pokemon ORDER BY level;
 | 잠만보   |    90 |
 | 닥트리오 |   100 |
 +----------+-------+
-10 rows in set (0.000 sec)
 
+모든 포켓몬들의 이름, 레벨 보여줘. 레벨 많은 순으로 보여줘  (ORDER BY) 
 MariaDB [testdb]> SELECT name, level FROM pokemon ORDER BY level DESC;
 +----------+-------+
 | name     | level |
@@ -101,8 +102,8 @@ MariaDB [testdb]> SELECT name, level FROM pokemon ORDER BY level DESC;
 | 푸린     |     5 |
 | 라이츄   |     3 |
 +----------+-------+
-10 rows in set (0.000 sec)
 
+레벨이 3이상인 모든 포켓몬들의 이름, 레벨 보여줘. 레벨 많은 순으로, 같은 레벨이면 이름 오름차순으로 보여줘  (ORDER BY)
 MariaDB [testdb]> SELECT name, level FROM pokemon WHERE level >= 3  ORDER BY level DESC, name;
 +----------+-------+
 | name     | level |
@@ -118,6 +119,8 @@ MariaDB [testdb]> SELECT name, level FROM pokemon WHERE level >= 3  ORDER BY lev
 | 푸린     |     5 |
 | 라이츄   |     3 |
 +----------+-------+
+
+모든 포켓몬들의 이름, 레벨 보여줘. 등록일자 최신순으로 보여줘.
 MariaDB [testdb]> SELECT name, level FROM pokemon ORDER BY regdate ASC;
 +----------+-------+
 | name     | level |
@@ -133,10 +136,9 @@ MariaDB [testdb]> SELECT name, level FROM pokemon ORDER BY regdate ASC;
 | 피카츄   |    10 |
 | 닥트리오 |   100 |
 +----------+-------+
-MariaDB [testdb]>  UPDATE pokemon SET level = level + 1 WHERE level < 100;
-Query OK, 9 rows affected (0.000 sec)
-Rows matched: 9  Changed: 9  Warnings: 0
 
+레벨이 100 미만인 포켓몬들의 레벨을 1씩 증가해줘
+MariaDB [testdb]>  UPDATE pokemon SET level = level + 1 WHERE level < 100;
 MariaDB [testdb]> SELECT *FROM pokemon;
 +----+----------+-------+------+------+---------------------+
 | no | name     | level | hp   | ap   | regdate             |
@@ -152,11 +154,9 @@ MariaDB [testdb]> SELECT *FROM pokemon;
 |  9 | 뮤       |    31 | NULL | NULL | 2019-11-28 22:10:03 |
 | 10 | 피츄     |    31 | NULL | NULL | 2019-02-28 12:14:23 |
 +----+----------+-------+------+------+---------------------+
-10 rows in set (0.000 sec)
 
+포켓몬 중 레벨이 100 인 포켓몬들을 삭제해줘
 MariaDB [testdb]> DELETE FROM pokemon WHERE level = 100;
-Query OK, 1 row affected (0.006 sec)
-
 MariaDB [testdb]> SELECT *FROM pokemon;
 +----+----------+-------+------+------+---------------------+
 | no | name     | level | hp   | ap   | regdate             |
@@ -171,11 +171,9 @@ MariaDB [testdb]> SELECT *FROM pokemon;
 |  9 | 뮤       |    31 | NULL | NULL | 2019-11-28 22:10:03 |
 | 10 | 피츄     |    31 | NULL | NULL | 2019-02-28 12:14:23 |
 +----+----------+-------+------+------+---------------------+
-9 rows in set (0.000 sec)
+
+레벨이 짝수인 포켓몬들의 레벨을 두배로 변경해줘
 MariaDB [testdb]> UPDATE pokemon SET level = level * 2 WHERE level % 2 = 0;
-Query OK, 4 rows affected (0.000 sec)
-Rows matched: 4  Changed: 4  Warnings: 0
-
 MariaDB [testdb]> SELECT *FROM pokemon;
 +----+----------+-------+------+------+---------------------+
 | no | name     | level | hp   | ap   | regdate             |
@@ -190,12 +188,9 @@ MariaDB [testdb]> SELECT *FROM pokemon;
 |  9 | 뮤       |    31 | NULL | NULL | 2019-11-28 22:10:03 |
 | 10 | 피츄     |    31 | NULL | NULL | 2019-02-28 12:14:23 |
 +----+----------+-------+------+------+---------------------+
-9 rows in set (0.000 sec)
 
+체력이 레벨의 100배보다 큰 포켓몬들의 레벨을 체력의 1/100로 수정해줘
 MariaDB [testdb]> UPDATE pokemon SET level = hp / 100 WHERE hp > level*100;
-Query OK, 0 rows affected (0.000 sec)
-Rows matched: 0  Changed: 0  Warnings: 0
-
 MariaDB [testdb]> SELECT *FROM pokemon;
 +----+----------+-------+------+------+---------------------+
 | no | name     | level | hp   | ap   | regdate             |
@@ -210,55 +205,20 @@ MariaDB [testdb]> SELECT *FROM pokemon;
 |  9 | 뮤       |    31 | NULL | NULL | 2019-11-28 22:10:03 |
 | 10 | 피츄     |    31 | NULL | NULL | 2019-02-28 12:14:23 |
 +----+----------+-------+------+------+---------------------+
-9 rows in set (0.000 sec)
+
 
 =================================================================================================================================
-MariaDB [(none)]> CREATE TABLE member()
-    -> CREATE TABLE member()
-    -> CREATE TABLE member()
-    -> ;
-ERROR 1046 (3D000): No database selected
-MariaDB [(none)]> CREATE TABLE member(
-    -> no INT PRIMARY KEY,
-    -> id VARCHAR(40) NOT NULL UNIQUE,
-    -> email VARCHAR(40) UNIQUE,
-    -> password INT,
-    -> type INT DEFAULT type = 1 CHECK(type >=1 AND type <=4),
-    -> point INT DEFAULT point = 1000 CHECK(point > 0)
-    -> );
-ERROR 1046 (3D000): No database selected
-MariaDB [(none)]> USE testdb
-Database changed
-MariaDB [testdb]> CREATE TABLE member(
-    -> no INT PRIMARY KEY,
-    -> id VARCHAR(40) NOT NULL UNIQUE,
-    -> email VARCHAR(40) UNIQUE,
-    -> password INT,
-    -> type INT DEFAULT type = 1 CHECK(type >=1 AND type <=4),
-    -> point INT DEFAULT point = 1000 CHECK(point > 0)
-    -> );
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= 1 CHECK(type >=1 AND type <=4),
-point INT DEFAULT point = 1000 CHECK(point ...' at line 6
-MariaDB [testdb]> CREATE TABLE member(
-    -> no INT PRIMARY KEY,
-    -> id VARCHAR(40) NOT NULL UNIQUE,
-    -> email VARCHAR(40) UNIQUE,
-    -> password INT,
-    -> type INT DEFAULT type = 1 CHECK(type >=1 AND type <=4),
-    -> point INT DEFAULT point = 1000 CHECK(point > 0)
-    -> ;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= 1 CHECK(type >=1 AND type <=4),
-point INT DEFAULT point = 1000 CHECK(point ...' at line 6
-MariaDB [testdb]> CREATE TABLE member(
-    -> no INT PRIMARY KEY,
-    -> id VARCHAR(40) NOT NULL UNIQUE,
-    -> email VARCHAR(40) UNIQUE,
-    -> password INT,
-    -> type INT DEFAULT type = 1 CHECK(type >=1 AND type <=4),
-    -> point INT DEFAULT point = 1000 CHECK(point > 0)
-    -> );
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= 1 CHECK(type >=1 AND type <=4),
-point INT DEFAULT point = 1000 CHECK(point ...' at line 6
+
+1. MEMBER 테이블 만들기 
+	    항목 : 회원번호(no), 아이디(id), 패스워드(password), 이메일(email), 등급(type), 적립금(point)
+ 	    제약조건 : 
+		Primary key 는 회원번호다.
+		아이디는 중복이면 안된다. (UNIQUE) 
+		이메일도 중복이면 안된다. (UNIQUE) 
+		아이디는 누락되면 안된다. (NOT NULL)
+		등급은 1 ~ 4가 있고 기본값은 1이다.
+		적립금은 1000원이 기본값이고 음수일 수 없다.
+	
 MariaDB [testdb]> CREATE TABLE member(
     -> no INT PRIMARY KEY,
     -> id VARCHAR(40) NOT NULL UNIQUE,
@@ -282,6 +242,15 @@ MariaDB [testdb]> DESC member;
 +----------+-------------+------+-----+---------+-------+
 6 rows in set (0.019 sec)
 
+2. QNA 테이블 만들기 
+	    항목 : 질문번호(no), 글쓴이번호(writer_no), 질문 내용(content), 등록일자(regdate)
+	    제약조건 : 
+		Primary key 는 질문번호다.
+		글쓴이번호는 MEMBER 테이블의 회원번호를 참조한다. (FOREIGN KEY)
+		글쓴이 회원이 삭제되면 해당 질문도 삭제된다. (CASCADE)	
+		질문 내용은 누락되면 안된다.
+		등록일자는 기본값이 현재 시간이다. 
+
 MariaDB [testdb]> CREATE TABLE QNA(
     -> no INT PRIMARY KEY,
     -> writer_no INT,
@@ -303,8 +272,6 @@ Query OK, 1 row affected (0.017 sec)
 MariaDB [testdb]> INSERT INTO member VALUES(12131, 'jkl', 'jkl@naver.com', 12131, 3, 4000);
 Query OK, 1 row affected (0.016 sec)
 
-MariaDB [testdb]> INSERT * FROM member;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* FROM member' at line 1
 MariaDB [testdb]> SELECT *FROM member;
 +-------+-----+---------------+----------+------+-------+
 | no    | id  | email         | password | type | point |
@@ -314,14 +281,11 @@ MariaDB [testdb]> SELECT *FROM member;
 | 45678 | def | def@naver.com |    45678 |    1 |  2000 |
 | 91011 | ghi | ghi@naver.com |    91011 |    2 |  3000 |
 +-------+-----+---------------+----------+------+-------+
-4 rows in set (0.000 sec)
 
-MariaDB [testdb]> INSERT INTO QNA VALUES(1, 12345, '안녕하세요');
-ERROR 1136 (21S01): Column count doesn't match value count at row 1
 MariaDB [testdb]> INSERT INTO QNA(no, writer_no, content) VALUES(1, 12345, '안녕하세요');
 Query OK, 1 row affected (0.024 sec)
 
-MariaDB [testdb]> INSERT INTO QNA(no, writer_no, content) VALUES(2, 45678, '안녕하세요요요요 요');
+MariaDB [testdb]> INSERT INTO QNA(no, writer_no, content) VALUES(2, 45678, '안녕하세요요요요요');
 Query OK, 1 row affected (0.017 sec)
 
 MariaDB [testdb]> SELECT * FROM QNA;
